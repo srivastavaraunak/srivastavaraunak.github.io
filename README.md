@@ -2,4 +2,4 @@
 
 ### This is my portfolio!
 
-To View the live site click [here &rarr;](https://srivastavaraunak.github.io/)
+To view the live site click [here &rarr;](https://srivastavaraunak.github.io/)
