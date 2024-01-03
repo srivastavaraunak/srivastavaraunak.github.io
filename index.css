@@ -335,10 +335,11 @@ body:not(.user-is-tabbing) a:focus {
 /* ----- Navigation ----- */
 /* --------------------------------------- */
 
-.nav li {
+.nav {
     display: flex;
     justify-content: flex-end;
     padding: var(--gutter-normal) 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .nav__items {
