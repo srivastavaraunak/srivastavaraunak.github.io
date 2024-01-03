@@ -338,6 +338,7 @@ body:not(.user-is-tabbing) a:focus {
 .nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: var(--gutter-normal) 0;
 }
 
