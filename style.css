@@ -122,6 +122,22 @@ main {
   flex-shrink: 0;
 }
 
+.currently-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.entry-title-link {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.entry-title-link:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .entry-desc {
   font-size: 0.82rem;
   color: var(--muted);
