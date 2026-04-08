@@ -69,6 +69,22 @@ main {
   margin-bottom: 12px;
 }
 
+.label-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 16px;
+  transition: color 0.15s ease;
+}
+
+.label-link:hover {
+  color: var(--link-hover);
+}
+
 .label {
   font-size: 0.75rem !important;
   font-weight: 600;
@@ -178,6 +194,33 @@ main {
 }
 
 .accent-text a:hover {
+  color: var(--link-hover);
+}
+
+/* ── See more ── */
+.back-home {
+  display: inline-block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: color 0.15s ease;
+}
+
+.back-home:hover {
+  color: var(--link-hover);
+}
+
+.see-more {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.see-more:hover {
   color: var(--link-hover);
 }
 
