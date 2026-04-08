@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>git commands &mdash; raunak srivastava</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="blog.css" />
+</head>
+<body>
+  <div class="blog-layout">
+
+    <aside class="toc">
+      <p class="toc-label">contents</p>
+      <nav>
+        <a href="#setup" class="toc-link">setup</a>
+        <a href="#basics" class="toc-link">basics</a>
+        <a href="#branching" class="toc-link">branching</a>
+        <a href="#merging" class="toc-link">merging</a>
+        <a href="#undoing" class="toc-link">undoing changes</a>
+        <a href="#remote" class="toc-link">remote</a>
+        <a href="#inspection" class="toc-link">inspection</a>
+        <a href="#stash" class="toc-link">stashing</a>
+        <a href="#references" class="toc-link">references</a>
+      </nav>
+    </aside>
+
+    <article class="blog-article">
+      <a href="../index.html" class="back-link">&lsaquo; back</a>
+
+      <h1 class="blog-title">Git Commands</h1>
+      <p class="blog-meta">Raunak Srivastava &middot; April 2026 &middot; reference</p>
+
+      <hr class="blog-divider" />
+
+      <section id="setup">
+        <h2>Setup</h2>
+
+        <pre><code>git config --global user.name "Your Name"</code></pre>
+        <p>Set your name for all commits globally.</p>
+
+        <pre><code>git config --global user.email "you@example.com"</code></pre>
+        <p>Set your email for all commits globally.</p>
+
+        <pre><code>git init</code></pre>
+        <p>Initialize a new Git repository in the current directory.</p>
+
+        <pre><code>git clone &lt;url&gt;</code></pre>
+        <p>Clone a remote repository locally.</p>
+      </section>
+
+      <section id="basics">
+        <h2>Basics</h2>
+
+        <pre><code>git status</code></pre>
+        <p>Show the state of the working directory and staging area.</p>
+
+        <pre><code>git add &lt;file&gt;</code></pre>
+        <p>Stage a specific file for the next commit.</p>
+
+        <pre><code>git add .</code></pre>
+        <p>Stage all changed files in the current directory.</p>
+
+        <pre><code>git commit -m "message"</code></pre>
+        <p>Commit staged changes with a message.</p>
+
+        <pre><code>git commit -m "message"</code></pre>
+        <p>Commit staged changes with a message.</p>
+
+        <pre><code>git commit --amend -m "New commit message"</code></pre>
+        <p>Change the most recent commit message only.</p>
+
+        <pre><code>git add &lt;filename&gt;
+git commit --amend --no-edit</code></pre>
+        <p>Add forgotten files to the last commit (no edit will keep the last commit).</p>
+
+      </section>
+
+      <section id="branching">
+        <h2>Branching</h2>
+
+        <pre><code>git branch</code></pre>
+        <p>List all local branches.</p>
+
+        <pre><code>git branch &lt;name&gt;</code></pre>
+        <p>Create a new branch.</p>
+
+        <pre><code>git checkout &lt;branch&gt;</code></pre>
+        <p>Switch to an existing branch.</p>
+
+        <pre><code>git checkout -b &lt;name&gt;</code></pre>
+        <p>Create and switch to a new branch in one step.</p>
+
+        <pre><code>git merge &lt;branch&gt;</code></pre>
+        <p>Merge the specified branch into the current branch.</p>
+
+        <pre><code>git branch -d &lt;name&gt;</code></pre>
+        <p>Delete a branch (only if fully merged).</p>
+
+        <pre><code>git branch -D &lt;name&gt;</code></pre>
+        <p>Force delete a branch regardless of merge status.</p>
+      </section>
+
+      <section id="merging">
+        <h2>Merging a Branch Step by Step</h2>
+
+        <p>The general pattern is that you want to merge <strong>branch-a</strong> into <strong>branch-b</strong> (branch-b is the one that receives the changes).</p>
+
+        <p>Step 1 — Switch to the destination branch (branch-b) and make sure it's up to date.</p>
+        <pre><code>git checkout branch-b
+git pull origin branch-b</code></pre>
+
+        <p>Step 2 — Merge branch-a into it.</p>
+        <pre><code>git merge branch-a</code></pre>
+
+        <p>Step 3 — Push the updated branch-b.</p>
+        <pre><code>git push origin branch-b</code></pre>
+
+        <p>For example, merging a feature branch into main:</p>
+        <pre><code>git checkout main
+git pull origin main
+git merge feature/my-feature
+git push origin main</code></pre>
+
+        <hr class="blog-divider" />
+
+        <h2>Resolving Merge Conflicts</h2>
+
+        <p>A merge conflict happens when two branches both changed the same part of the same file, and Git doesn't know which version to keep.</p>
+
+        <p>Step 1 — When the conflict happens, Git will stop and tell you. Run this to see which files are affected.</p>
+        <pre><code>git status</code></pre>
+
+        <p>You'll see something like:</p>
+        <pre><code>both modified: app.py</code></pre>
+
+        <p>Step 2 — Open the conflicting file. Git inserts conflict markers directly into the code to show you both versions side by side.</p>
+        <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+print("Hello from main")
+=======
+print("Hello from feature-branch")
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</code></pre>
+
+        <p>Breaking this down:</p>
+        <p><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> — everything below this line (until the <code>=======</code>) is what's on your current branch.</p>
+        <p><code>=======</code> — the divider between the two versions.</p>
+        <p><code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature-branch</code> — everything above this line (after the <code>=======</code>) is what's coming in from the branch you're merging.</p>
+
+        <p>Step 3 — Edit the file to the version you want. You can keep one side, keep both, or write something entirely new. Just make sure to delete all the conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>). For example, if you want to keep both lines:</p>
+        <pre><code>print("Hello from main")
+print("Hello from feature-branch")</code></pre>
+
+        <p>Or if you only want the feature branch version:</p>
+        <pre><code>print("Hello from feature-branch")</code></pre>
+
+        <p>Step 4 — Once you've edited the file, stage it to tell Git the conflict is resolved.</p>
+        <pre><code>git add app.py</code></pre>
+
+        <p>Step 5 — Complete the merge with a commit.</p>
+        <pre><code>git commit</code></pre>
+
+        <p>If things get too messy and you want to start over, abort the merge entirely. This puts everything back to before you ran <code>git merge</code>.</p>
+        <pre><code>git merge --abort</code></pre>
+      </section>
+
+      <section id="undoing">
+        <h2>Undoing Changes</h2>
+
+        <pre><code>git restore &lt;file&gt;</code></pre>
+        <p>Discard unstaged changes in a file.</p>
+
+        <pre><code>git restore --staged &lt;file&gt;</code></pre>
+        <p>Unstage a file without discarding changes.</p>
+
+        <pre><code>git reset HEAD~1</code></pre>
+        <p>Undo the last commit, keeping changes unstaged.</p>
+
+        <pre><code>git reset --hard HEAD~1</code></pre>
+        <p>Undo the last commit and discard all changes. Irreversible.</p>
+
+        <pre><code>git revert &lt;commit&gt;</code></pre>
+        <p>Create a new commit that undoes a previous one. Safe for shared branches.</p>
+      </section>
+
+      <section id="remote">
+        <h2>Remote</h2>
+
+        <pre><code>git remote -v</code></pre>
+        <p>List remote connections with their URLs.</p>
+
+        <pre><code>git remote add origin &lt;url&gt;</code></pre>
+        <p>Add a remote named origin.</p>
+
+        <pre><code>git push origin &lt;branch&gt;</code></pre>
+        <p>Push a branch to the remote.</p>
+
+        <pre><code>git push -u origin &lt;branch&gt;</code></pre>
+        <p>Push and set the upstream so future pushes just need <code>git push</code>.</p>
+
+        <pre><code>git pull</code></pre>
+        <p>Fetch and merge changes from the remote into the current branch.</p>
+
+        <pre><code>git fetch</code></pre>
+        <p>Download changes from the remote without merging.</p>
+      </section>
+
+      <section id="inspection">
+        <h2>Inspection</h2>
+
+        <pre><code>git log</code></pre>
+        <p>Show the full commit history.</p>
+
+        <pre><code>git log --oneline</code></pre>
+        <p>Compact commit history — one line per commit.</p>
+
+        <pre><code>git log --oneline --graph --all</code></pre>
+        <p>Visual branch graph of the entire history.</p>
+
+        <pre><code>git diff</code></pre>
+        <p>Show unstaged changes.</p>
+
+        <pre><code>git diff --staged</code></pre>
+        <p>Show changes that are staged but not yet committed.</p>
+
+        <pre><code>git blame &lt;file&gt;</code></pre>
+        <p>Show who last modified each line of a file.</p>
+      </section>
+
+      <section id="stash">
+        <h2>Stashing</h2>
+
+        <pre><code>git stash</code></pre>
+        <p>Temporarily save uncommitted changes and clean the working directory.</p>
+
+        <pre><code>git stash pop</code></pre>
+        <p>Re-apply the most recent stash and remove it from the stash list.</p>
+
+        <pre><code>git stash list</code></pre>
+        <p>Show all saved stashes.</p>
+
+        <pre><code>git stash drop</code></pre>
+        <p>Delete the most recent stash without applying it.</p>
+      </section>
+
+      <section id="references">
+        <h2>References</h2>
+        <p><a href="https://webtuu.com/blog/04/a-laymans-introduction-to-git" target="_blank">A Layman's Introduction to Git</a></p>
+        <p><a href="https://webtuu.com/blog/04/git-basics-branching-merging-push-to-github" target="_blank">Git Basics — Branching, Merging, Push to GitHub</a></p>
+      </section>
+
+    </article>
+  </div>
+</body>
+</html>

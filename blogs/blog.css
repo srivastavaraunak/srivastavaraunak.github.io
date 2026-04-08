@@ -111,6 +111,32 @@
   color: var(--link-hover);
 }
 
+/* ── Code Blocks ── */
+pre {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+}
+
+pre code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.blog-article p code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+  font-size: 0.8rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--text);
+}
+
 /* ── Responsive ── */
 @media (max-width: 680px) {
   .blog-layout {
