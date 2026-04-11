@@ -1,4 +1,4 @@
-# srivastavaraunak.github.io
+# Raunak Srivastava
 
 This is my personal website.
 
